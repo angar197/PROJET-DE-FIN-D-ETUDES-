@@ -1,0 +1,313 @@
+{
+  "intents": [
+    {
+      "tag": "start_orientation",
+      "category": "greeting",
+      "patterns": ["Hello", "Salut", "Yo", "Bonjour", "La forme?", "ça roule?", "Hey", "Salam"],
+      "responses": [
+        "Salut à toi, comment je peux t'aider?",
+        "Hello, comment je peux t'aider?",
+        "Salutations, comment je peux t'aider?",
+        "Enchanté, comment je peux t'aider?"
+      ],
+      "next": "ask_bac_type"
+    },
+    {
+      "tag": "ask_bac_type",
+      "category": "bac_type",
+      "patterns": [
+        "Je veux continuer mes études supérieures",
+        "Etudes après bac",
+        "Etude sup",
+        "information sur les études supérieures",
+        "Je suis bachelier",
+        "Je viens d’avoir mon bac"
+      ],
+      "responses": [
+        "Ton bac est de type Scientifique, Technique, Littéraire ou Economique ?"
+      ],
+      "next": "ask_bac_option"
+    },
+    {
+      "tag": "ask_bac_option",
+      "category": "bac_option",
+      "patterns": ["j'ai un bac Science", "Scientifique", "bac technique", "Technique", "bac lettres", "Littéraire", "bac éco", "Economique"],
+      "responses": ["Peux-tu préciser l’option ?"],
+      "next": "ask_bac_option_details"
+    },
+    {
+      "tag": "ask_bac_option_details",
+      "category": "bac_option_details",
+      "patterns": ["PC", "physique", "chimie", "SM", "Science Math", "Maths", "Mathématique", "SVT", "Science Vie Terre", "Sciences de la Vie et de la Terre", "STM", "Science Technique", "Technique Math", "Eco", "Économie", "bac éco", "Gestion", "bac gestion", "comptabilité", "LET", "Lettres", "bac lettres"],
+      "responses": {
+        "PC": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "PC" } },
+        "SM": { "text": "Quel est ton projet professionnel ?", "conditions": { "bac_option": "SM" } },
+        "SVT": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "SVT" } },
+        "STM": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "STM" } },
+        "Eco": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "Eco" } },
+        "Gestion": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "Gestion" } },
+        "LET": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "LET" } },
+        "Langues": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "Langues" } },
+        "Philosophie": { "text": "Quel est ton projet professionnel?", "conditions": { "bac_option": "Philosophie" } }
+      },
+      "next": "ask_project"
+    },
+    {
+      "tag": "ask_project",
+      "category": "project",
+      "patterns": [
+        "ingénieur", "informatique", "médecin", "enseignant", "droit", "architecture", "commerce", "comptabilité", "psychologie", "formation", "ofppt", "islam", "religion", "paramédical", "infirmier", "étudier à l'étranger", "étranger", "art", "design", "agriculture"
+      ],
+      "responses": {
+        "ingénieur": {
+          "text": "Tu peux viser ENSA, FST, EMI selon ta région. Souhaitez-vous obtenir des informations sur l'une de ces écoles ?",
+          "conditions": {
+            "bac_type": ["scientifique"]
+          }
+        },
+        "informatique": {
+          "text": "Tu peux viser FST, ENSA, ENSIAS, UIR. Souhaitez-vous obtenir des informations sur l'une de ces écoles ?",
+          "conditions": {
+            "bac_type": ["Scientifique","scientifique"], 
+            "bac_option": ["SM", "PC", "SVT"]
+          }
+        },
+        "médecine": {
+          "text": "Les facultés de médecine : Casablanca, Rabat, Fès...",
+          "conditions": {
+            "bac_type": ["scientifique"],
+            "bac_option": ["SM", "PC", "SVT"]
+          }
+        },
+        "enseignant": {
+          "text": "Tu peux postuler à l’ENS ou faire des études universitaires et ensuite le CRMEF.",
+          "conditions": {}
+        },
+        "droit": {
+          "text": "Les facultés de droit (FSJES) sont accessibles à tous les types de bac.",
+          "conditions": {}
+        },
+        "architecture": {
+          "text": "Tu peux viser l’ENA ou des écoles privées, concours requis.",
+          "conditions": { "bac_type": "scientifique" }
+        },
+        "commerce": {
+          "text": "ISCAE, ENCG ou faculté d'économie selon ton niveau.",
+          "conditions": { "bac_type": "economique" }
+        },
+        "psychologie": {
+          "text": "Tu peux suivre une licence en psychologie dans une faculté de lettres et sciences humaines.",
+          "conditions": { "bac_type": "littéraire" }
+        },
+        "économie": {
+          "text": "Tu peux viser : Analyste économique, Fonctionnaire (ministères, finances), Chercheur en économie.",
+          "conditions": {
+            "bac_type": "economique",
+            "bac_option": "Eco"
+          }
+        },
+        "gestion": {
+          "text": "Tu peux devenir gestionnaire d’entreprise, chef de projet, ou même entrepreneur via ENCG, ISCAE, ou la faculté.",
+          "conditions": {
+            "bac_type": "economique",
+            "bac_option": "Gestion"
+          }
+        },
+        "comptabilité": {
+          "text": "Tu peux viser un BTS en comptabilité, ENCG, ISCAE ou une licence économie-gestion pour devenir expert-comptable ou auditeur.",
+          "conditions": {
+            "bac_type": "economique",
+            "bac_option": "Gestion"
+          }
+        },
+        "audit": {
+          "text": "Le métier d’auditeur financier est accessible via ENCG, ISCAE ou un master en audit et contrôle.",
+          "conditions": {
+            "bac_type": "economique",
+            "bac_option": "Gestion"
+          }
+        },
+        "journaliste": {
+          "text": "Tu peux viser l’ISIC ou faire une licence en lettres ou communication pour devenir journaliste ou rédacteur.",
+          "conditions": {
+            "bac_type": "littéraire",
+            "bac_option": ["LET", "Langues"]
+          }
+        },
+        "philosophie": {
+          "text": "Tu peux poursuivre des études en philosophie, devenir enseignant, chercheur ou analyste.",
+          "conditions": {
+            "bac_type": "littéraire",
+            "bac_option": "Philosophie"
+          }
+        },
+        "traduction": {
+          "text": "Tu peux devenir traducteur ou interprète via une licence en langues, ou en intégrant des écoles spécialisées.",
+          "conditions": {
+            "bac_type": "littéraire",
+            "bac_option": "Langues"
+          }
+        },
+        "communication": {
+          "text": "Tu peux viser ISIC ou des écoles de communication. Ce domaine mène vers la publicité, les relations publiques, etc.",
+          "conditions": {
+            "bac_type": "littéraire",
+            "bac_option": ["LET", "Langues"]
+          }
+        },
+        "marketing": {
+          "text": "Le marketing est accessible via ENCG, ISCAE, faculté d’économie ou de commerce.",
+          "conditions": {
+            "bac_type": "economique"
+          }
+        },
+        "ofppt": {
+          "text": "OFPPT propose des formations qualifiantes accessibles après le bac, selon ton domaine préféré.",
+          "conditions": {}
+        },
+        "islam": {
+          "text": "Les études islamiques sont proposées dans les Facultés de Charia. Il faut souvent un bon niveau en arabe.",
+          "conditions": { "bac_type": "littéraire" }
+        },
+        "religion": {
+          "text": "Tu peux viser les études islamiques en Faculté de Charia (Agadir, Fès...).",
+          "conditions": { "bac_type": "littéraire" }
+        },
+        "paramédical": {
+          "text": "Les IFCS forment aux métiers paramédicaux : infirmier, sage-femme, etc. Sélection par concours.",
+          "conditions": {
+            "bac_type": "scientifique",
+            "bac_option": ["SVT", "PC"]
+          }
+        },
+        "étudier à l'étranger": {
+          "text": "Pour étudier à l’étranger (France, Canada, Turquie…), tu dois préparer ton dossier + tests de langue si nécessaire.",
+          "conditions": {}
+        },
+        "étranger": {
+          "text": "Tu peux viser une université à l'étranger (Canada, Turquie, etc.), à condition d’avoir un bon dossier scolaire.",
+          "conditions": {}
+        },
+        "art": {
+          "text": "Des écoles comme l’ESAV ou INBA t'accueillent si tu veux faire du cinéma, du design ou des arts plastiques.",
+          "conditions": {
+            "bac_type": ["littéraire", "scientifique"]
+          }
+        },
+        "design": {
+          "text": "Tu peux viser des écoles de design, d’architecture intérieure ou stylisme. Certaines sont privées, d'autres publiques.",
+          "conditions": {
+            "bac_type": ["littéraire", "scientifique"]
+          }
+        },
+        "agriculture": {
+          "text": "Tu peux viser l’IAV Hassan II ou un institut agricole (ISTA).",
+          "conditions": {
+            "bac_type": "scientifique",
+            "bac_option": ["SVT", "PC"]
+          }
+        },
+        "technicien": {
+          "text": "Tu peux viser un BTS ou un DUT en électronique, électrotechnique, maintenance industrielle, ou en génie civil.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        },
+        "génie électrique": {
+          "text": "Des écoles comme l’EST ou les filières de BTS/Génie électrique sont très adaptées à ton profil.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        },
+        "génie civil": {
+          "text": "Tu peux poursuivre en DUT Génie Civil, BTS Travaux Publics ou entrer en EST ou FST.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        },
+        "industrie": {
+          "text": "Les écoles comme l’EST ou l’OFPPT offrent des formations dans les métiers de l’industrie : mécanique, production, etc.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        },
+        "maintenance": {
+          "text": "Tu peux viser un BTS ou DUT en maintenance industrielle ou électromécanique.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        },
+        "automatisme": {
+          "text": "Les domaines de l’automatisation et robotique sont accessibles via les EST ou les écoles d’ingénieurs après prépa ou DUT.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        },
+        "électronique": {
+          "text": "L’électronique est un domaine fort avec un bac technique : tu peux viser un DUT ou EST puis une école d’ingénieurs.",
+          "conditions": {
+            "bac_type": "technique"
+          }
+        }
+
+      },
+      "next": "ask_school"
+    },
+
+    {
+  "tag": "ask_school",
+  "category": "school",
+  "patterns": [
+    "donner des informations sur la FST","donner information sur" , "fst","ENCG", "CPGE", "ENSA", "ENA", "EMI","ENSAM", "ISCAE", "ENS", "faculté de médecine", "fac médecine", "fac de droit","fac lettres","ofppt"
+  ],
+  "responses": {
+    "FST": {
+      "text": "La Faculté des Sciences et Techniques (FST) propose des filières scientifiques et techniques comme informatique, mathématiques, biologie, etc. Elle est accessible principalement aux bacheliers scientifiques (SM, PC, SVT)."
+    },
+    "ENSA": {
+      "text": "L'École Nationale des Sciences Appliquées (ENSA) forme des ingénieurs dans plusieurs spécialités. Admission via Parcoursup marocain ou concours post-bac scientifique (SM, PC)."
+    },
+    "CPGE": {
+      "text": "Les Classes Préparatoires aux Grandes Écoles (CPGE) permettent d’intégrer des écoles d’ingénieurs ou de commerce. Elles sont très sélectives, destinées aux bacheliers scientifiques ou économiques."
+    },
+    "ENCG": {
+      "text": "L'École Nationale de Commerce et de Gestion (ENCG) forme des cadres en commerce, marketing, finance, gestion... Accessible principalement aux bacs économiques, mais aussi aux bons profils scientifiques ou techniques."
+    },
+    "ENA": {
+      "text": "L'École Nationale d'Architecture (ENA) forme les futurs architectes du Maroc. L'accès se fait par concours, généralement ouvert aux bacheliers scientifiques ou techniques."
+    },
+    "EMI": {
+      "text": "L'École Mohammadia d’Ingénieurs (EMI) est une école d'ingénieurs prestigieuse. Elle est accessible après une CPGE ou un concours spécifique très sélectif."
+    },
+    "ENSAM": {
+      "text": "L’École Nationale Supérieure d'Arts et Métiers (ENSAM) forme des ingénieurs spécialisés en mécanique, production industrielle... Accessible aux bacheliers scientifiques/techniques via concours."
+    },
+    "ISCAE": {
+      "text": "L'Institut Supérieur de Commerce et d’Administration des Entreprises (ISCAE) est une grande école de commerce marocaine. Admission sur concours, destinée principalement aux profils économiques ou scientifiques forts."
+    },
+    "ENS": {
+      "text": "L’École Normale Supérieure (ENS) forme des enseignants. L’accès se fait via un concours post-bac ou après une licence. Plusieurs spécialités selon le niveau scolaire et le domaine choisi."
+    },
+    "faculté de médecine": {
+      "text": "Les facultés de médecine sont accessibles après le bac scientifique (SM, PC). Concours très sélectif. Durée des études : 7 à 8 ans (médecine générale, spécialités)."
+    },
+    "fac de droit": {
+      "text": "La faculté de droit (FSJES) est ouverte à tous types de bac. Tu peux y suivre des études de droit privé, public, économie, gestion... Accessible sans concours."
+    },
+    "fac lettres": {
+      "text": "Les facultés des lettres proposent des licences en langues, littérature, philosophie, histoire, géographie, etc. Ouvertes à tous types de bac, en particulier littéraire."
+    },
+    "ofppt": {
+      "text": "L'OFPPT propose des formations qualifiantes et techniques (technicien, technicien spécialisé, etc.). Ouvert à presque tous les types de bac et parfois sans bac."
+    }
+  }
+},
+
+    {
+      "tag": "restart_conversation",
+      "patterns": ["annuler", "recommencer", "reset", "je veux tout reprendre", "on recommence"],
+      "responses": ["D'accord, reprenons depuis le début. Quel est ton type de bac ?"],
+      "next": "ask_bac_type"
+    }
+  ]
+}

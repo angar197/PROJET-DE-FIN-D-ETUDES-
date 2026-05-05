@@ -1,0 +1,16 @@
+{
+    "name": "youne/chatbot-orientation",
+    "description": "Application web d'orientation scolaire pour les bacheliers marocains.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Youness Angar",
+            "email": "younessangar5@gamil.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
